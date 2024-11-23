@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message History with {{ recipient.username }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        #history-container {
+            border: 1px solid #ddd;
+            padding: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .message {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .message:last-child {
+            border-bottom: none;
+        }
+        .message .sender {
+            font-weight: bold;
+        }
+        .timestamp {
+            color: gray;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Message History with {{ recipient.username }}</h1>
+    <div id="history-container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message">
+                    <p>
+                        <span class="sender">{{ message.sender.username }}:</span>
+                        {{ message.content }}
+                    </p>
+                    <p class="timestamp">{{ message.timestamp|date:"Y-m-d H:i:s" }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No messages to display.</p>
+        {% endif %}
+    </div>
+    <a href="{% url 'private_chat' recipient.username %}"><button>Back to Chat</button></a>
+    <a href="{% url 'login' %}"><button>Make Another Login</button></a>
+    <a href="{% url 'register' %}"><button>Make Another Register</button></a>
+    <a href="{% url 'member_list' %}"><button>Member List</button></a>
+
+</body>
+</html>

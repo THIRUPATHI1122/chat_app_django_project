@@ -1,0 +1,8 @@
+<h1>Member List</h1>
+<ul>
+    {% for user in users %}
+        <li><a href="{% url 'private_chat' user.username %}">{{ user.username }}</a></li>
+    {% endfor %}
+</ul>
+<a href="{% url 'login' %}"><button>Make Another Login</button></a>
+<a href="{% url 'register' %}"><button>Make Another Register</button></a>
